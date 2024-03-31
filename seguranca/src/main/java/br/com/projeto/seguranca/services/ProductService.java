@@ -20,4 +20,16 @@ public class ProductService {
         return new ProductDTO(entity);
     }
 
+    @Transactional
+    public List<ProductDTO> findAll(){
+        return repository.findAll().stream().map(x -> new ProductDTO(x)).toList();
+    }
+
+    @Transactional
+    public ProductDTO insert(ProductDTO dto) {
+        Product entity = new Product();
+        entity.setName(dto.getName());
+        entity = repository.save(entity);
+        return new ProductDTO(entity);
+    }
 }
